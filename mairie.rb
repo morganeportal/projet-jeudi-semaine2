@@ -10,11 +10,17 @@ end
 def get_all_the_urls_of_val_doise_townhalls()
 	page = 	Nokogiri::HTML(open('http://annuaire-des-mairies.com/val-d-oise.html'))  
 	a = page.xpath('//p/a')
-	result = {}
+	result = []
 	a.each do  |node| 
 		url = 'http://annuaire-des-mairies.com'+node['href']
 		email = get_the_email_of_a_townhal_from_its_webpage(url)
-		result[node.text]= email
+		nom = node.text
+		ville = {
+			'nom' => nom,
+			'email' => email,
+		}
+		puts(ville)
+		result.push ville
 	end
 	return result
 end
